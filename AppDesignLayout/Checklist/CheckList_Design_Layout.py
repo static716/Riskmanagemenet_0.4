@@ -1,6 +1,6 @@
 from tkinter import *
 
-class CheckList:
+class initiate:
     def __init__(self, root):
         # Checklist Gadget Layout
         checkListMainFrame = Frame(root, bg="blue", width=480, height=270)

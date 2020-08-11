@@ -1,6 +1,6 @@
 from tkinter import *
 
-class ToDoListFrame:
+class initiate:
     def __init__(self, root):
         # To Do List Gadget
         toDoListMainFrame = Frame(root, bg="blue", width=480, height=270)

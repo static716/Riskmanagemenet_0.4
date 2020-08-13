@@ -2,7 +2,6 @@ import cv2
 import pytesseract
 import numpy as np
 from PIL import ImageGrab
-from datetime import *
 
 # pytesseract file location
 pytesseract.pytesseract.tesseract_cmd = r"C:\Users\bryan\AppData\Local\Tesseract-OCR\tesseract.exe"
@@ -14,10 +13,8 @@ def desktop_Screenshot(x1, y1, x2, y2, resizeX, resizeY):
     img = cv2.resize(img, None, fx=resizeX, fy=resizeY)
     return img
 
-
 #########################################################################################################
                                         #Get Contour is needed for findColor function
-
 #Gets the outline from given image
 def getContours(img):
     contours, hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
@@ -31,7 +28,8 @@ def getContours(img):
     return x + w // 2, y
 
 #Returns the color value from given image if our specified color is found (0 = None, 1 = Red, 2 = Blue).
-def findColor(img, myColors): #We have the image, the colors we r looking for, and colors to paint our image
+def findColor(img): #We have the image, the colors we r looking for, and colors to paint our image
+    myColors = [[0, 179, 75, 255, 255, 255], [95, 179, 158, 255, 255, 255]]
     imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV) #We convert our image color
     count = 0
     newPoints = []
@@ -79,6 +77,5 @@ def retrieveText(img, itemsScanning):
 
                     if len(list) == itemsScanning:
                         return list
-#########################################################################################################
-                                #Useful Functions
+
 

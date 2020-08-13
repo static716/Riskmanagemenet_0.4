@@ -24,25 +24,18 @@ class initiate:
                 def kb_listener_press_function(key):
                     #Obtain the key that was pressed and stored in variable
                     hotKeyPressed = str(key)
-                    print(hotKeyPressed)
+
                     # Everytime, F4 is pressed
                         # We will keep count in total_Times_Buy_Button_Pressed variable
-                        # remaining_Buy_Button_Press_Count purpose is to keep track of how many times a process should be performed
                     if (hotKeyPressed == "Key.f4"):
-                        print("f4")
                         global total_Times_Buy_Button_Pressed
-                        # global remaining_Buy_Button_Press_Count
                         total_Times_Buy_Button_Pressed = total_Times_Buy_Button_Pressed + 1
-                        # remaining_Buy_Button_Press_Count = total_Times_Buy_Button_Pressed
 
                     # Everytime, F5 is pressed
                         # We will keep count in total_Times_Buy_Button_Pressed variable
-                        # remaining_Sell_Button_Press_Count purpose is to keep track of how many times a process should be performed
                     elif (hotKeyPressed == "Key.f5"):
                         global total_Times_Sell_Button_Pressed
-                        # global remaining_Sell_Button_Press_Count
                         total_Times_Sell_Button_Pressed = total_Times_Sell_Button_Pressed + 1
-                        # remaining_Sell_Button_Press_Count = total_Times_Sell_Button_Pressed
 
                 #Will Perform Following Function when activated
                 keyboard_listener = Listener(on_press=kb_listener_press_function)
@@ -63,55 +56,34 @@ class initiate:
         def launch_buy_button_action():
             while True:
                 # global remaining_Buy_Button_Press_Count
-                global total_Times_Buy_Button_Pressed
-
                 if getBuyButtonPressCount() != 0:
                     print("hello")
+                    global total_Times_Buy_Button_Pressed
+                    # print(total_Times_Buy_Button_Pressed)
+                    time.sleep(1)
                     total_Times_Buy_Button_Pressed = getBuyButtonPressCount() -1
+                elif getBuyButtonPressCount() < 0:
+                    total_Times_Buy_Button_Pressed = 0
                 else:
                     time.sleep(2)
-                # if remaining_Buy_Button_Press_Count == 0 or remaining_Buy_Button_Press_Count >= 1:
-                #     time.sleep(2)
-                #     for i in range(remaining_Buy_Button_Press_Count):
-                #         print("buyButtonPressed")
-                #         # testing.pressBuyButton()
-                #
-                #         remaining_Buy_Button_Press_Count = remaining_Buy_Button_Press_Count - 1
-                #     if remaining_Buy_Button_Press_Count == 0:
-                #         total_Times_Sell_Button_Pressed = 0
-                # else:
-                #     time.sleep(2)
 
         def launch_sell_button_action():
             while True:
                 # global remaining_Sell_Button_Press_Count
-                global total_Times_Sell_Button_Pressed
+                # global total_Times_Sell_Button_Pressed
                 if getSellButtonPressCount() != 0:
                     print("Sell Button Function")
+                    global total_Times_Sell_Button_Pressed
+                    # print(total_Times_Sell_Button_Pressed)
+                    time.sleep(1)
                     total_Times_Sell_Button_Pressed = getSellButtonPressCount() -1
+                elif getSellButtonPressCount() < 0:
+                    total_Times_Sell_Button_Pressed = 0
                 else:
                     time.sleep(2)
-
-
-#                 if remaining_Sell_Button_Press_Count == 0 or remaining_Sell_Button_Press_Count >= 1:
-#                     time.sleep(2)
-#                     for i in range(remaining_Sell_Button_Press_Count):
-#                         print("sellButtonPressed")
-#
-# #                        print("Current Value: " + str(total_Sell_Button_Presses))
-#
-#                         remaining_Sell_Button_Press_Count = remaining_Sell_Button_Press_Count - 1
-#                     if remaining_Sell_Button_Press_Count == 0:
-#                         total_Times_Sell_Button_Pressed = 0
-#                 else:
-#                     time.sleep(2)
-
-
 
         performBuyButtonAction = Thread(target=launch_buy_button_action)
         performBuyButtonAction.start()
 
         performSellButtonAction = Thread(target=launch_sell_button_action)
         performSellButtonAction.start()
-
-initiate()

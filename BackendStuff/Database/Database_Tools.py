@@ -11,7 +11,6 @@ def get_Database_Table_Name():
 def getCurrentTime():
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
-
 #Customize Time to your preference
     # current_time = "01:00:00"
     return current_time

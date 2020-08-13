@@ -78,4 +78,14 @@ def retrieveText(img, itemsScanning):
                     if len(list) == itemsScanning:
                         return list
 
+def identify_Tradelog_Color(startingCordinates, resizeX, resizeY):
+    imgTradeLogScreenShot = desktop_Screenshot(startingCordinates[0], startingCordinates[1], startingCordinates[2],startingCordinates[3], resizeX, resizeY)
+    imgTradeLogColor = cv2.cvtColor(imgTradeLogScreenShot, cv2.COLOR_BGR2RGB)
+    tradeLogColorIdentifier = findColor(imgTradeLogColor)
+
+    return len(tradeLogColorIdentifier)
+
+
+
+
 

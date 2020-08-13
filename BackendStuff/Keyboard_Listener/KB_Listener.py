@@ -57,7 +57,9 @@ class initiate:
             while True:
                 # global remaining_Buy_Button_Press_Count
                 if getBuyButtonPressCount() != 0:
+
                     print("hello")
+
                     global total_Times_Buy_Button_Pressed
                     # print(total_Times_Buy_Button_Pressed)
                     time.sleep(1)
@@ -72,7 +74,9 @@ class initiate:
                 # global remaining_Sell_Button_Press_Count
                 # global total_Times_Sell_Button_Pressed
                 if getSellButtonPressCount() != 0:
+
                     print("Sell Button Function")
+
                     global total_Times_Sell_Button_Pressed
                     # print(total_Times_Sell_Button_Pressed)
                     time.sleep(1)

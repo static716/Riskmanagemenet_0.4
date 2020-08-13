@@ -22,15 +22,14 @@ class initiate:
             if tradeLog_Color != 0:
                 #If it is the color that coordinates with out function, then we perform the add_to_database function
                 if tradeLog_Color == the_Color_IM_Looking_For:
-
-                    print("Perform Add")
-
+                    DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Not_Looking_For)
                     session = False
                     break
 
                 #If color is not what we are looking for
                 else:
                     #Then we will look at the pending order section cuz the order might be pending
+
                     pending_Order_Color = SCN_Tools.identify_Tradelog_Color([448, 782, 640, 798], 6, 6)
                     if pending_Order_Color == 0 or pending_Order_Color == the_Color_IM_Not_Looking_For: #If the color is not there then we will scan and check trade log
                         tradeLog_Color = SCN_Tools.identify_Tradelog_Color(startingCordinates, 6, 6)
@@ -38,7 +37,8 @@ class initiate:
                             session = False
                             break
                         else:
-                            print("Perform Add")
+                            DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Not_Looking_For)
+
                             # addToDatabase(current_time, 1)
                             session = False
                             break
@@ -47,7 +47,8 @@ class initiate:
                         if pending_Order_Color == 0:
                             tradeLog_Color = SCN_Tools.identify_Tradelog_Color(startingCordinates, 6, 6)
                             if tradeLog_Color == the_Color_IM_Looking_For:
-                                print("Perform Add")
+                                DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Not_Looking_For)
+
                                 # addToDatabase(current_time, 1)
                                 session = False
                                 break
@@ -63,7 +64,8 @@ class initiate:
                         session = False
                         break
                     else:
-                        addToDatabase(current_time, 2)
+                        DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Not_Looking_For)
+
                         session = False
                         break
                 else:#If color does exist in pending order
@@ -73,7 +75,7 @@ class initiate:
                         tradeLog_Color = SCN_Tools.identify_Tradelog_Color(startingCordinates, 6, 6)
                         if tradeLog_Color == the_Color_IM_Looking_For:
 
-                            addToDatabase(current_time, 2)
+                            DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Not_Looking_For)
 
                             session = False
                             break

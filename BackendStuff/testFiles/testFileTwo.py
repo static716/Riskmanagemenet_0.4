@@ -18,7 +18,7 @@ def examineDataORAddToDatabase(startingCordinates, startTime, asignedColor):
                 imgTradeLogColor = cv2.cvtColor(imgTradeLogColor, cv2.COLOR_BGR2RGB)
                 tradeLogColorIdentifier = findColor(imgTradeLogColor, tradeLogColors)
                 if len(tradeLogColorIdentifier) == asignedColor:
-                    x11, y11 = dbFunction.addToDatabase(startTime, startingCordinates, asignedColor)
+                    x11, y11 = dbFunction.obtain_Info_Then_Upload_To_Database(startTime, startingCordinates, asignedColor)
                     startingCordinates[1] = x11
                     startingCordinates[3] = y11
                 else:

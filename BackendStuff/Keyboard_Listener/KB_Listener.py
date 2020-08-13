@@ -1,6 +1,7 @@
 from pynput.keyboard import Listener
 from threading import Thread
 import time
+from BackendStuff.Database import Import_Tradelog_Data_To_Database
 
 # Variables that hold number of presses
 global total_Times_Buy_Button_Pressed
@@ -58,8 +59,7 @@ class initiate:
                 # global remaining_Buy_Button_Press_Count
                 if getBuyButtonPressCount() != 0:
 
-                    print("hello")
-
+                    Import_Tradelog_Data_To_Database.initiate(2)
                     global total_Times_Buy_Button_Pressed
                     # print(total_Times_Buy_Button_Pressed)
                     time.sleep(1)
@@ -75,8 +75,7 @@ class initiate:
                 # global total_Times_Sell_Button_Pressed
                 if getSellButtonPressCount() != 0:
 
-                    print("Sell Button Function")
-
+                    Import_Tradelog_Data_To_Database.initiate(1)
                     global total_Times_Sell_Button_Pressed
                     # print(total_Times_Sell_Button_Pressed)
                     time.sleep(1)

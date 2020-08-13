@@ -1,5 +1,6 @@
 import sqlite3
 from datetime import *
+from BackendStuff.Scanning import Scanning_Tools as SCN_Tools
 
 # Gets database table name
 def get_Database_Table_Name():
@@ -107,3 +108,42 @@ def check_If_Already_Exist(list, startTime):
     connection.close()
     return False
 
+def obtain_Info_Then_Upload_To_Database(startTime, startingPosition, colorNumber):
+    # if pressButtonSession:
+    sessionStatus = True
+
+    while sessionStatus:
+        scanTextImg = SCN_Tools.desktop_Screenshot(startingPosition[0], startingPosition[1], startingPosition[2], startingPosition[3], 3, 3)
+        retrieveTradeList = SCN_Tools.retrieveText(scanTextImg, 7)
+        if check_If_Already_Exist(retrieveTradeList, startTime):
+            reorganize_DB_Table_In_Ascend_Order(get_Database_Table_Name())
+            sessionStatus = False
+            break
+        else:
+            add_Table_To_Database(retrieveTradeList, get_Database_Table_Name())
+            startingPosition[1] = startingPosition[1] + 23
+            startingPosition[3] = startingPosition[3] + 23
+
+            return startingPosition[1], startingPosition[3]
+
+def precheck_Before_Uploading_To_Database(startingCordinates, startTime, asignedColor):
+    session = True
+    while session:
+        tradeLog_Color = SCN_Tools.identify_Tradelog_Color([startingCordinates[0], startingCordinates[1], startingCordinates[2], startingCordinates[3]], 6, 6)
+        if tradeLog_Color != 0:
+            scanTextImg = SCN_Tools.desktop_Screenshot(startingCordinates[0], startingCordinates[1], startingCordinates[2], startingCordinates[3], 3, 3)
+            retrieveTimeList = SCN_Tools.retrieveText(scanTextImg, 1)
+            if compare_Time_Difference(get_Database_Table_Name(), startTime, retrieveTimeList[0]):
+                if tradeLog_Color == asignedColor:
+
+                    x11, y11 = obtain_Info_Then_Upload_To_Database(startTime, startingCordinates, asignedColor)
+
+                    startingCordinates[1] = x11
+                    startingCordinates[3] = y11
+                else:
+                    startingCordinates[1] = startingCordinates[1] + 23
+                    startingCordinates[3] = startingCordinates[3] + 23
+            else:
+                session = False
+        else:
+            session = False

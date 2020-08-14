@@ -1,6 +1,6 @@
 from BackendStuff.Database import Database_Tools as DB_Tools
 from BackendStuff.Scanning import Scanning_Tools as SCN_Tools
-
+import time
 class initiate:
     def __init__(self, colorLookingFor):
         startingCordinates = [10, 610, 420, 633]
@@ -19,10 +19,12 @@ class initiate:
             #We scan tradelog and try to identify color
             tradeLog_Color = SCN_Tools.identify_Tradelog_Color(startingCordinates, 6, 6)
             #If there is previous data, then we try to find out what type of data it is
+
             if tradeLog_Color != 0:
-                #If it is the color that coordinates with out function, then we perform the add_to_database function
+                # If it is the color that coordinates with out function, then we perform the add_to_database function
                 if tradeLog_Color == the_Color_IM_Looking_For:
-                    DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Not_Looking_For)
+                    print("Scanning Tradelog Color Detected")
+                    DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Looking_For)
                     session = False
                     break
 
@@ -37,7 +39,7 @@ class initiate:
                             session = False
                             break
                         else:
-                            DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Not_Looking_For)
+                            DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Looking_For)
 
                             # addToDatabase(current_time, 1)
                             session = False
@@ -47,7 +49,7 @@ class initiate:
                         if pending_Order_Color == 0:
                             tradeLog_Color = SCN_Tools.identify_Tradelog_Color(startingCordinates, 6, 6)
                             if tradeLog_Color == the_Color_IM_Looking_For:
-                                DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Not_Looking_For)
+                                DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Looking_For)
 
                                 # addToDatabase(current_time, 1)
                                 session = False
@@ -64,7 +66,7 @@ class initiate:
                         session = False
                         break
                     else:
-                        DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Not_Looking_For)
+                        DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Looking_For)
 
                         session = False
                         break
@@ -75,7 +77,7 @@ class initiate:
                         tradeLog_Color = SCN_Tools.identify_Tradelog_Color(startingCordinates, 6, 6)
                         if tradeLog_Color == the_Color_IM_Looking_For:
 
-                            DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Not_Looking_For)
+                            DB_Tools.precheck_Before_Uploading_To_Database(startingCordinates,current_time,the_Color_IM_Looking_For)
 
                             session = False
                             break

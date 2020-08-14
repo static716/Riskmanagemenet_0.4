@@ -58,8 +58,9 @@ class initiate:
             while True:
                 # global remaining_Buy_Button_Press_Count
                 if getBuyButtonPressCount() != 0:
-
-                    Import_Tradelog_Data_To_Database.initiate(2)
+                    print("Buy Button")
+                    buyPressed = Import_Tradelog_Data_To_Database
+                    buyPressed.initiate(2)
                     global total_Times_Buy_Button_Pressed
                     # print(total_Times_Buy_Button_Pressed)
                     time.sleep(1)
@@ -75,7 +76,8 @@ class initiate:
                 # global total_Times_Sell_Button_Pressed
                 if getSellButtonPressCount() != 0:
 
-                    Import_Tradelog_Data_To_Database.initiate(1)
+                    sellPressed = Import_Tradelog_Data_To_Database
+                    sellPressed.initiate(1)
                     global total_Times_Sell_Button_Pressed
                     # print(total_Times_Sell_Button_Pressed)
                     time.sleep(1)

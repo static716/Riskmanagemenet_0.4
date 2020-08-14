@@ -13,7 +13,7 @@ def getCurrentTime():
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
 #Customize Time to your preference
-    # current_time = "01:00:00"
+    current_time = "19:52:20"
     return current_time
 
 # Adds item to Trade Log Database
@@ -108,25 +108,28 @@ def check_If_Already_Exist(list, startTime):
     connection.close()
     return False
 
-def obtain_Info_Then_Upload_To_Database(startTime, startingPosition, colorNumber):
+def obtain_Info_Then_Upload_To_Database(startTime, startingPosition):
     # if pressButtonSession:
     sessionStatus = True
-
     while sessionStatus:
         scanTextImg = SCN_Tools.desktop_Screenshot(startingPosition[0], startingPosition[1], startingPosition[2], startingPosition[3], 3, 3)
         retrieveTradeList = SCN_Tools.retrieveText(scanTextImg, 7)
         if check_If_Already_Exist(retrieveTradeList, startTime):
             reorganize_DB_Table_In_Ascend_Order(get_Database_Table_Name())
             sessionStatus = False
-            break
+            startingPosition[1] = startingPosition[1] + 23
+            startingPosition[3] = startingPosition[3] + 23
+            return startingPosition[1], startingPosition[3]
+
         else:
             add_Table_To_Database(retrieveTradeList, get_Database_Table_Name())
             startingPosition[1] = startingPosition[1] + 23
             startingPosition[3] = startingPosition[3] + 23
-
+            sessionStatus = False
             return startingPosition[1], startingPosition[3]
 
 def precheck_Before_Uploading_To_Database(startingCordinates, startTime, asignedColor):
+    print("Inside Precheck")
     session = True
     while session:
         tradeLog_Color = SCN_Tools.identify_Tradelog_Color([startingCordinates[0], startingCordinates[1], startingCordinates[2], startingCordinates[3]], 6, 6)
@@ -134,10 +137,17 @@ def precheck_Before_Uploading_To_Database(startingCordinates, startTime, asigned
             scanTextImg = SCN_Tools.desktop_Screenshot(startingCordinates[0], startingCordinates[1], startingCordinates[2], startingCordinates[3], 3, 3)
             retrieveTimeList = SCN_Tools.retrieveText(scanTextImg, 1)
             if compare_Time_Difference(get_Database_Table_Name(), startTime, retrieveTimeList[0]):
+                print(asignedColor)
+                print(tradeLog_Color)
                 if tradeLog_Color == asignedColor:
+                    print("Inside")
+                    print("Before x11 = " + str(startingCordinates[1]))
+                    print("Before y11 = " + str(startingCordinates[3]))
 
-                    x11, y11 = obtain_Info_Then_Upload_To_Database(startTime, startingCordinates, asignedColor)
+                    x11, y11 = obtain_Info_Then_Upload_To_Database(startTime, startingCordinates)
 
+                    print("After x11 = " + str(x11))
+                    print("After y11 = " + str(y11))
                     startingCordinates[1] = x11
                     startingCordinates[3] = y11
                 else:

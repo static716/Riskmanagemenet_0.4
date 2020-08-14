@@ -13,7 +13,7 @@ def getCurrentTime():
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
 #Customize Time to your preference
-    current_time = "19:52:20"
+    current_time = "14:00:00"
     return current_time
 
 # Adds item to Trade Log Database

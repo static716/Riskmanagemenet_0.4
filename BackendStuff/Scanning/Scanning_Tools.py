@@ -45,8 +45,9 @@ def findColor(img): #We have the image, the colors we r looking for, and colors 
 #########################################################################################################
 #Returns a list of text scanned at specified image location
 def retrieveText(img, itemsScanning):
+    givenImage = img
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     boxes = pytesseract.image_to_data(gray, lang='eng', config='-c tessedit_char_blacklist=()|/\`!@#$%^&*-+{}[];><,?_{,=~')
     boxes = boxes.splitlines()
     count = 0
@@ -70,10 +71,24 @@ def retrieveText(img, itemsScanning):
                             list[2] = str(hello[0][0])
 
                     if len(list) == 7:
-                        if list[6].rfind(":") == 0:
-                            # hello = list[6].split()
+                        hello = list[6].split()
+                        print(hello)
+                        print("Second Version")
+
+                        if hello[0][0].rfind(".") == 0:
+                            createNewString = ""
+                            for x in range(len(hello[0])):
+                                if x == 0:
+                                    createNewString = createNewString + "-"
+                                    x += 1
+                                else:
+                                    createNewString = createNewString + str(hello[0][x])
+                            list[6] = createNewString
+                        elif list[6].rfind(":") == 0:
+                            hello = list[6].split()
                             list[6] = list[6].replace(":", "-")
                             # list[6] = "-" + str(hello[0][1]) + str(hello[0][2])+ str(hello[0][3])+ str(hello[0][4])+ str(hello[0][5])
+
 
                     if len(list) == itemsScanning:
                         return list

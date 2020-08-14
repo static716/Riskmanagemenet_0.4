@@ -75,7 +75,7 @@ class initiate:
                 # global remaining_Sell_Button_Press_Count
                 # global total_Times_Sell_Button_Pressed
                 if getSellButtonPressCount() != 0:
-                    print("Sell Button")
+                    # print("Sell Button")######################################
                     sellPressed = Import_Tradelog_Data_To_Database
                     sellPressed.initiate(1)
                     global total_Times_Sell_Button_Pressed

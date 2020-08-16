@@ -1,5 +1,5 @@
 from tkinter import *
-class DisplayPatternFrame:
+class initiate:
     def __init__(self,root):
         #Display Pattern Images That I Look For Gadget
         displayPatternImagesMainFrame = Frame(root,bg="blue", width=480, height=270)
